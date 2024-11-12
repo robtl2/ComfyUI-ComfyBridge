@@ -108,7 +108,7 @@ function main_menu_settings() {
         // 因为名字取得太随意了，所以这里改一下，免得哪天遇到重名的了
         id: "cÖmfyBridge.port",
         name: "comfyBridge's socket port. default: 17777 (need restart) ",
-        type: "number",
+        type: "text",
         defaultValue: 17777,
     });
 }
