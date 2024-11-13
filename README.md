@@ -10,11 +10,15 @@ Both are stored in the cÖmfyBridge category.
 `ImageSende੭⁺˚` is used to send images to other software.
 
 
-## Installation
+### Installation
 You can install either though comfy manager or by cloning this repository into the custom nodes directory.
 
-## User Interface
-You can add multiple `ImageReceive੭˚⁺` or `ImageSende੭⁺˚` nodes to the comfyUI canvas.
+
+### Recommended Third-Party DCC Software
+#### 3D Software
+- [Blender](https://www.blender.org/)
+- [ComfyBridge-Blender-beta](https://github.com/robtl2/ComfyBridge-Blender-beta)
+
 
 
 
