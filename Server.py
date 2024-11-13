@@ -38,7 +38,7 @@ OK = 666
 
 ClientReceiverNames = {}
 server_thread = None
-client_threads = {}
+client_list = {}
 connected = False
 
 # 不知道comfyUI有没有给现成的setting获取方法，先这样写吧
@@ -84,29 +84,28 @@ def handleClient(client_socket):
 
     operations = SetupOperations(client_socket)
 
-    while True:
+    while True and not client_socket._closed:
         try:
             code = receiveInt(client_socket)
             if code in operations:
                 operations[code]()
             else:
                 closeClient(client_socket)
-                print(f"ComfyBridge break for unknown opCode: {code}")
         except Exception as e:
-            print(f"ComfyBridge {e}")
-            EventMan.remove('ProgressWithImageSender', onProgressWithImageSender, client_socket)
-            EventMan.remove('ImageSenderGotImage', onImageSenderGotImage, client_socket)
-
             ClientReceiverNames.pop(client_socket, None)
             closeClient(client_socket)
             break
 
+    EventMan.remove('ProgressWithImageSender', onProgressWithImageSender, client_socket)
+    EventMan.remove('ImageSenderGotImage', onImageSenderGotImage, client_socket)
+
 def closeClient(client_socket):
-    client_socket.close()
-    client_thread = client_threads.pop(client_socket, None)
+    client = client_list.pop(client_socket, None)
+    client['client'].close()
+    print(f"ComfyBridge break a client: {client['addr']}")
     try:    
-        if client_thread:
-            client_thread.join()
+        if client['thread']:
+            client['thread'].join()
     except Exception as e:
         pass
 
@@ -119,9 +118,9 @@ def startSocketServer():
 
             while connected:
                 client_socket, addr = server_socket.accept()
-                print("ComfyBridge accept client: ", addr)
+                print("ComfyBridge accept a client: ", addr)
                 client_thread = threading.Thread(target=handleClient, args=(client_socket,))
-                client_threads[client_socket] = client_thread
+                client_list[client_socket] = {'client': client_socket, 'thread': client_thread, 'addr': addr}
                 client_thread.start()
     except Exception as e:
         print(f"ComfyBridge error: {e}")
@@ -235,8 +234,8 @@ def StopComfyBridge():
         server_thread.join()
         server_thread = None
 
-    for client_socket in client_threads:
-        closeClient(client_socket)
+    for client in client_list:
+        closeClient(client)
     print("ComfyBridge stopped")
 
 ########################################################
