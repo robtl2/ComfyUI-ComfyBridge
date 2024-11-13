@@ -54,7 +54,7 @@ def get_bridge_port_in_setting():
         settings = json.load(file)
 
     try:    
-        port = int(settings['cÖmfyBridg୧.port'])
+        port = int(settings['cÖmfyBridge.port'])
     except:
         port = 17777
 
