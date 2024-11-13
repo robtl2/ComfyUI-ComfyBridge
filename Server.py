@@ -148,6 +148,9 @@ def whenClientSendImage(client_socket):
             else:
                 IMAGE_RECEIVED[name]["data"] = image_tensor
                 IMAGE_RECEIVED[name]["counter"] += 1
+
+            client = client_list[client_socket]
+            print(f"ComfyBridge received image:{name} from {client['addr']}")
             
         sendInt(client_socket, OK)
     except Exception as e:
@@ -164,6 +167,9 @@ def whenClientRequestImage(client_socket):
         
         ClientReceiverNames[client_socket] = names
 
+        client = client_list[client_socket]
+        print(f"ComfyBridge request images:{names} from {client['addr']}")
+
         sendInt(client_socket, OK)
     except Exception as e:
         print(f"ComfyBridge sending image with error: {e}")
@@ -172,6 +178,8 @@ def whenClientRequestImage(client_socket):
 def whenClientQueuePrompt(client_socket):
     names = ClientReceiverNames[client_socket]
     PromptServer.instance.send_sync("ComfyBridge.QueuePrompt", {"names": names})
+    client = client_list[client_socket]
+    print(f"ComfyBridge queue prompt for {client['addr']}")
 
 def onProgressWithImageSender(client_socket, args):
     socket = client_socket
@@ -193,14 +201,16 @@ def onImageSenderGotImage(client_socket, args):
     receiver_names = ClientReceiverNames[client_socket]
 
     if args['name'] in receiver_names:
+        client = client_list[client_socket]
+        print(f"ComfyBridge response image:{args['name']} to {client['addr']}")
+
         sendInt(client_socket, RESPONSED_IMAGE)
         sendString(client_socket, args['name'])
         length_bytes = len(image_data).to_bytes(4, byteorder='big') 
         data = length_bytes + image_data
         client_socket.sendall(data)
         sendInt(client_socket, OK)
-    else:
-        sendInt(client_socket, ERROR)
+    
 
 def SetupOperations(client_socket):
     operations = {
