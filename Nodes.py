@@ -12,7 +12,7 @@ class ImageReceiver:
     RETURN_TYPES = ("IMAGE",)
     RETURN_NAMES = ("image",)
     FUNCTION = "execute"
-    CATEGORY = "SimpleStuff"
+    CATEGORY = "cÖmfyBridge"
     OUTPUT_NODE = True
 
     def __init__(self):
@@ -46,7 +46,7 @@ class ImageSender:
     RETURN_TYPES = ()
     RETURN_NAMES = ()
     FUNCTION = "execute"
-    CATEGORY = "SimpleStuff"
+    CATEGORY = "cÖmfyBridge"
     OUTPUT_NODE = True
 
     def __init__(self):

@@ -226,9 +226,7 @@ def SetupOperations(client_socket):
 def StartComfyBridge():
     global connected
     global server_thread
-    print("start ComfyBridge")
     get_bridge_port_in_setting()
-
     connected = True
     server_thread = threading.Thread(target=startSocketServer)
     server_thread.daemon = True 
