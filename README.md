@@ -11,7 +11,8 @@ Both are stored in the cÖmfyBridge category.
 
 
 ### Installation
-You can install either though comfy manager or by cloning this repository into the custom nodes directory.
+You can install though comfy manager via GIT URL: https://github.com/robtl2/ComfyUI-ComfyBridge.git
+or by cloning this repository into the custom nodes directory.
 
 
 ### Recommended Third-Party DCC Software
