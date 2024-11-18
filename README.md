@@ -1,5 +1,5 @@
 # cÖmfyBridge
-A socket service that helps third-party DCC software maintain long-term image exchange with comfyUI.
+A socket service that helps DCC software maintain long-term image exchange with comfyUI.
 
 This plugin provides two nodes:
 
@@ -13,7 +13,7 @@ You can install though comfy manager via GIT URL: https://github.com/robtl2/Comf
 or by cloning this repository into the custom nodes directory.
 
 
-### Recommended Third-Party DCC Software
+### Recommended DCC Software
 #### 3D Software
 - [Blender](https://www.blender.org/)
 - [ComfyBridge-Blender-beta](https://github.com/robtl2/ComfyBridge-Blender-beta)
