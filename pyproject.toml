@@ -1,0 +1,14 @@
+[project]
+name = "comfyui-comfybridge"
+description = "A socket service that helps third-party DCC software maintain long-term image exchange with comfyUI."
+version = "1.0.0"
+license = {file = "LICENSE"}
+
+[project.urls]
+Repository = "https://github.com/robtl2/ComfyUI-ComfyBridge"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI-ComfyBridge"
+Icon = ""
